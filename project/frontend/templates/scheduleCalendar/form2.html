@@ -10,7 +10,7 @@
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <div class="mt-8">
+    <div>
       <form
         id="form"
         class="w-10/12 mx-auto md:max-w-md"
@@ -18,7 +18,7 @@
         method="post"
       >
         {% csrf_token %}
-        <div class="mb-8">
+        <div>
           <label for="name" class="text-sm block">予定</label>
 
           <input
@@ -27,12 +27,13 @@
             name="schedule"
             class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="A社商談"
-            value="{{schedule}}"
+            value="'{{schedule}}"
             required
-            style="text-align: center"
+            style="text-align:center"
           />
         </div>
-
+        <label for="message">内容</label>
+        <textarea id="message" name="message">{{ message }}</textarea>
         <div class="mb-8">
           <label for="name" class="text-sm block"> 時間 </label>
           <input
@@ -73,60 +74,46 @@
           <option value="23:00"></option>
         </datalist>
 
-        <div id="timerange" class="text-sm block">
+        <div id="daterange" class="text-sm block">
           <div>
-            <label for="email" class="text-sm block"> 調整範囲 </label>
+            <label class="text-sm block"> 日程範囲 </label>
             <input
-              type="datetime-local"
-              id="timerange_begin"
-              name="timerange_begin"
+              type="date"
+              id="daterange_Start"
+              name="daterange_Start"
               class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
               reuired
             />
             <input
-              type="datetime-local"
-              id="timerange_end"
-              name="timerange_end"
+              type="date"
+              id="daterange_End"
+              name="daterange_End"
               class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              placeholder="2022/9/20 24:00"
               required
             />
           </div>
         </div>
 
-        <div class="example2" style="text-align: right">
-          <input
-            type="button"
-            id="add"
-            w-4
-            value="＋"
-            class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
-          />
-          <input
-            type="button"
-            id="remove"
-            value="ー"
-            class="bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
-          />
-        </div>
-        <script>
-          // 要素をコピー＆追加する関数
-          function addExample() {
-            let elements = document.getElementById("timerange");
-            let copied = elements.lastElementChild.cloneNode(true);
-            elements.appendChild(copied);
-          }
-          function remove() {
-            let parentnode = document.getElementById("timerange");
-            if (1 < parentnode.children.length)
-              parentnode.lastElementChild.remove();
-          }
-          // ボタンにイベントハンドラをセット
-          const addbtn = document.getElementById("add");
-          addbtn.addEventListener("click", addExample, false);
-          const removebtn = document.getElementById("remove");
-          removebtn.addEventListener("click", remove, false);
-        </script>
+        <div id="timerange" class="text-sm block">
+            <div>
+              <label class="text-sm block"> 時間範囲 </label>
+              <input
+                type="time"
+                id="timerange_Start"
+                name="timerange_Start"
+                class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+                reuired
+              />
+              <input
+                type="time"
+                id="timerange_End"
+                name="timerange_End"
+                class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+                required
+              />
+            </div>
+          </div>
+
 
         <div>
           <label class="text-sm block"> 優先度 </label>
@@ -136,10 +123,22 @@
             name="priority"
             class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="3"
-            required
             style="text-align:center"
+            required
           />
         </div>
+        <div>
+            <label class="text-sm block"> 回数 </label>
+            <input
+              type="text"
+              id="frequency"
+              name="frequency"
+              class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              placeholder="3"
+              required
+              style="text-align:center"
+            />
+          </div>
         <!-- <div class="example2" style="text-align: right">
           <input
             type="button"
@@ -156,9 +155,7 @@
         >
           送信
         </button>
-        <p id="message" name="message">{{ message }}</p>
       </form>
-      
     </div>
   </dev>
 </html>

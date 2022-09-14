@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./static/scheduleCalendar/app.js",
   output: {
     path: path.resolve(__dirname, "./static/frontend"),
     filename: "[name].js",

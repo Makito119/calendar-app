@@ -38,32 +38,51 @@ class HelloView(View):
     def get(self, request, *args, **kwargs):
      
         context = {
-            'message': "Hello World! from View!!",
+            'message': " GOT now! from View!!",
         }
         return render(request, 'scheduleCalendar/form1.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = CalendarForm(request.POST)
-        print(form)
-        
+   
         context = {
-            'message': "POST method OK!!",
+            'message': "POST OK!!",
             'shcedule':request.POST['schedule'],
             'priority':int(request.POST['priority']),
             'time':datetime.time(int(request.POST['time'].split(":")[0]),int(request.POST['time'].split(":")[1])),
-            #'timerange_begin':datetime.datetime.strptime(request.POST['timerange_begin'])
-            'timerange_begin':request.POST['timerange_begin']
+            'timerange_begin':request.POST['timerange_begin'],
+            'timerange_end':request.POST['timerange_end'],
         }
 
 
         print(context)
         print(context['time'].hour,context['time'].minute)
-        print(request.POST['schedule'],type(request.POST['schedule']))
-        print(request.POST['priority'],type(request.POST['priority']))
         return render(request, 'scheduleCalendar/form1.html', context)
 
-form1 = HelloView.as_view()
+def form1(request):
+  if request.method =="GET":
 
+    context = {
+            'message': " GOT now! from View!!",
+        }
+    return render(request, 'scheduleCalendar/form1.html', context)
+  elif request.method=="POST":
+    context = {
+            'message': "POST OK!!",
+            'shcedule':request.POST['schedule'],        
+            'time':datetime.time(int(request.POST['time'].split(":")[0]),int(request.POST['time'].split(":")[1])),
+            'timerange_begin':request.POST['timerange_begin'],
+            'timerange_end':request.POST['timerange_end'],
+            'priority':int(request.POST['priority']),
+        }
+    print(context)
+    print(context['time'].hour,context['time'].minute)
+    return render(request, 'scheduleCalendar/form1.html', context)
+
+  else:
+    raise Http404()
+
+# form1 = HelloView.as_view()
+form2 = HelloView.as_view()
 # def result(request):
 #   context = {
 #             'input_text': request.POST['schedule'],

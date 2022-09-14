@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // CSRF対策
 
   var calendarEl = document.getElementById("calendar");
-
+  
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
 
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // イベントの追加
         // 登録処理の呼び出し
         axios
-          .post("/add/", {
+          .post("add/", {
             start_date: info.start.valueOf(),
             end_date: info.end.valueOf(),
             event_name: eventName,
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     events: function (info, successCallback, failureCallback) {
       axios
-        .post("/list/", {
+        .post("list/", {
           start_date: info.start.valueOf(),
           end_date: info.end.valueOf(),
         })
