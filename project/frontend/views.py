@@ -10,6 +10,8 @@ from django.middleware.csrf import get_token
 from django.http import JsonResponse
 from .forms import CalendarForm
 from django.views import View
+import datetime
+
 
 def index(request, *args, **kwargs):
    return render(request, 'frontend/index.html')
@@ -41,15 +43,21 @@ class HelloView(View):
         return render(request, 'scheduleCalendar/form1.html', context)
 
     def post(self, request, *args, **kwargs):
-      
+        form = CalendarForm(request.POST)
+        print(form)
         
         context = {
             'message': "POST method OK!!",
             'shcedule':request.POST['schedule'],
-            'priority':request.POST['priority'],
+            'priority':int(request.POST['priority']),
+            'time':datetime.time(int(request.POST['time'].split(":")[0]),int(request.POST['time'].split(":")[1])),
+            #'timerange_begin':datetime.datetime.strptime(request.POST['timerange_begin'])
+            'timerange_begin':request.POST['timerange_begin']
         }
-       
+
+
         print(context)
+        print(context['time'].hour,context['time'].minute)
         print(request.POST['schedule'],type(request.POST['schedule']))
         print(request.POST['priority'],type(request.POST['priority']))
         return render(request, 'scheduleCalendar/form1.html', context)

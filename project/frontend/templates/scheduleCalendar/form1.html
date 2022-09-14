@@ -28,6 +28,7 @@
             class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="A社商談"
             value="'{{schedule}}"
+            required
           />
         </div>
         <label for="message">内容</label>
@@ -39,26 +40,60 @@
             id="time"
             name="time"
             class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="1h 10m"
+            value="01:00"
+            min="01:00"
+            list="data-list"
+            step="'3600"
+            required
           />
         </div>
-        <div class="mb-8">
-          <label for="email" class="text-sm block"> 調整範囲 </label>
-          <input
-            type="datetime-local"
-            id="timerange_begin"
-            nmae="timerange_begin"
-            class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="2022/9/13 18:00"
-          />
-          <input
-            type="datetime-local"
-            id="timerange_end"
-            name="timerange_end"
-            class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="2022/9/20 24:00"
-          />
+        <datalist id="data-list">
+          <option value="01:00"></option>
+          <option value="02:00"></option>
+          <option value="03:00"></option>
+          <option value="04:00"></option>
+          <option value="05:00"></option>
+          <option value="06:00"></option>
+          <option value="07:00"></option>
+          <option value="08:00"></option>
+          <option value="09:00"></option>
+          <option value="10:00"></option>
+          <option value="11:00"></option>
+          <option value="12:00"></option>
+          <option value="13:00"></option>
+          <option value="14:00"></option>
+          <option value="15:00"></option>
+          <option value="16:00"></option>
+          <option value="17:00"></option>
+          <option value="18:00"></option>
+          <option value="19:00"></option>
+          <option value="20:00"></option>
+          <option value="21:00"></option>
+          <option value="22:00"></option>
+          <option value="23:00"></option>
+        </datalist>
+
+        <div id="timerange" class="text-sm block">
+          <div>
+            <label for="email" class="text-sm block"> 調整範囲 </label>
+            <input
+              type="datetime-local"
+              id="timerange_begin"
+              name="timerange_begin"
+              class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              reuired
+            />
+            <input
+              type="datetime-local"
+              id="timerange_end"
+              name="timerange_end"
+              class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              placeholder="2022/9/20 24:00"
+              required
+            />
+          </div>
         </div>
+
         <div class="example2" style="text-align: right">
           <input
             type="button"
@@ -77,12 +112,12 @@
         <script type="text/javascript">
           // 要素をコピー＆追加する関数
           function addExample() {
-            let elements = document.getElementById("target");
+            let elements = document.getElementById("timerange");
             let copied = elements.lastElementChild.cloneNode(true);
             elements.appendChild(copied);
           }
           function remove() {
-            let parentnode = document.getElementById("target");
+            let parentnode = document.getElementById("timerange");
             if (1 < parentnode.children.length)
               parentnode.lastElementChild.remove();
           }
@@ -101,6 +136,7 @@
             name="priority"
             class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="3"
+            required
           />
         </div>
         <!-- <div class="example2" style="text-align: right">
