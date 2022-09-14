@@ -18,5 +18,7 @@ from django.urls import path
 from django.urls import include,path
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cal/', include('frontend.urls')),
     path('', include('frontend.urls')),
+
 ]
