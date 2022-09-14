@@ -9,6 +9,7 @@ import time
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
 from .forms import CalendarForm
+from django.views import View
 
 def index(request, *args, **kwargs):
    return render(request, 'frontend/index.html')
@@ -22,14 +23,49 @@ def index1(request):
 
     template = loader.get_template("scheduleCalendar/index.html")
     return HttpResponse(template.render())
-def form1(request):
-    """
-    カレンダー画面
-    """
+# def form1(request):
+#     """
+#     カレンダー画面
+#     """
     
 
-    template = loader.get_template("scheduleCalendar/form1.html")
-    return HttpResponse(template.render())
+#     template = loader.get_template("scheduleCalendar/form1.html")
+#     return HttpResponse(template.render())
+
+class HelloView(View):
+    def get(self, request, *args, **kwargs):
+     
+        context = {
+            'message': "Hello World! from View!!",
+        }
+        return render(request, 'scheduleCalendar/form1.html', context)
+
+    def post(self, request, *args, **kwargs):
+      
+        
+        context = {
+            'message': "POST method OK!!",
+            'shcedule':request.POST['schedule'],
+            'priority':request.POST['priority'],
+        }
+       
+        print(context)
+        print(request.POST['schedule'],type(request.POST['schedule']))
+        print(request.POST['priority'],type(request.POST['priority']))
+        return render(request, 'scheduleCalendar/form1.html', context)
+
+form1 = HelloView.as_view()
+
+# def result(request):
+#   context = {
+#             'input_text': request.POST['schedule'],
+
+#         }
+  
+#   datas = json.loads(request.body)
+#   print(datas)
+#   return render(request,'result.html',context)
+
 def add_event(request):
     """
     イベント登録
