@@ -1,14 +1,26 @@
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
+
 document.addEventListener("DOMContentLoaded", function () {
   // CSRF対策
 
   var calendarEl = document.getElementById("calendar");
-  
+  // let calendar = new FullCalendar.Calendar(calendarEl, {
+  //   //plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
+  //   initialView: 'dayGridMonth',
+  //   // headerToolbar: {
+  //   //   left: 'prev,next today',
+  //   //   center: 'title',
+  //   //   right: 'dayGridMonth,timeGridWeek,listWeek'
+  //   // }
+    
+  // });
+
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
-
+    //plugins: [ interactionPlugin ],
+    editable:true,
     // 日付をクリック、または範囲を選択したイベント
     selectable: true,
     select: function (info) {
@@ -57,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
-  calendar.render();
+ calendar.render();
 });
 
 

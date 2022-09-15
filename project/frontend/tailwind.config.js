@@ -5,11 +5,12 @@ module.exports = {
   },
   purge: {
     enabled: false,
-    content: ['../**/templates/*.html', '../**/templates/**/*.html'],
+    content: ["../**/templates/*.html", "../**/templates/**/*.html"],
   },
   theme: {
     extend: {},
   },
   variants: {},
   plugins: [],
-}
+ 
+};
