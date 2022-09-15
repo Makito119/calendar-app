@@ -1,55 +1,42 @@
 {% load static %}
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="calendar"></div>
-  </body>
-  <dev>
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <div class="mt-8">
-      <form
-        id="form"
-        class="w-10/12 mx-auto md:max-w-md"
-        action="/form3"
-        method="post"
-      >
-        {% csrf_token %}
-        <div>
-          <label for="name" class="text-center block">予定</label>
 
-          <input
-            type="text"
-            id="shcedule"
-            name="schedule"
-            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="A社商談"
-            value="{{schedule}}"
-            required
-            style="text-align: center"
-          />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href='./dist/main.css' rel='stylesheet' />
+  <script src='./dist/main.js'></script>
+</head>
+
+<body class="bg-orange-400">
+
+  <div>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <div class="mt-8">
+     
+      <form id="form" class="w-10/12 mx-auto md:max-w-md" action="/form3" method="post">
+        {% csrf_token %}
+        <img
+        src="https://cdn.discordapp.com/attachments/1019194467586146364/1019961031017119866/logo2.png"
+        width="180px"
+        height="200px"
+        class="w-full"
+     
+      />
+        <div>
+          <label for="name" class="py-2 text-center block font-mono text-white">予定</label>
+
+          <input type="text" id="shcedule" name="schedule"
+            class="rounded-lg w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            placeholder="A社商談" value="{{schedule}}" required style="text-align: center" />
         </div>
 
         <div class="py-2">
-          <label for="name" class="text-center block"> 時間 </label>
-          <input
-            type="time"
-            id="time"
-            name="time"
-            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            value="01:00"
-            min="01:00"
-            list="data-list"
-            step="'3600"
-            required
-            style="text-align: center"
-          />
+          <label for="name" class="tpy-2 text-center block font-mono text-white"> 時間 </label>
+          <input type="time" id="time" name="time"
+            class="rounded-lg w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            value="01:00" min="01:00" list="data-list" step="'3600" required style="text-align:center" />
         </div>
         <datalist id="data-list">
           <option value="01:00"></option>
@@ -79,80 +66,44 @@
 
         <div id="repeatrange" class="text-center py-2 flex">
           <div>
-            <label class="text-center"> 繰り返し範囲 </label>
-            <input
-              type="text"
-              id="timespan"
-              name="timespan"
-              class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-              placeholder="日 or 週 or 月"
-              style="text-align: center"
-            />
+            <label class="py-2 text-center block font-mono text-white"> 繰り返し範囲 </label>
+            <input type="text" id="timespan" name="timespan"
+              class="rounded-lg w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              required placeholder="週 or 月" style="text-align: center" />
           </div>
           <div>
-            <label class="text-center"> 回数 </label>
-            <input
-              type="text"
-              id="frequency"
-              name="frequency"
-              class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-              placeholder="3"
-              style="text-align: center"
-            />
+            <label class="py-2 text-center block font-mono text-white"> 回数 </label>
+            <input type="text" id="frequency" name="frequency"
+              class="rounded-lg w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              required placeholder="3" style="text-align: center" />
           </div>
         </div>
 
         <div class="text-center py-2">
-          <label class="text-center block"> 終了日 </label>
-          <input
-            type="date"
-            id="last_date"
-            name="last_date"
-            class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            required
-            style="text-align: center"
-          />
+          <label class="py-2 text-center block font-mono text-white"> 終了日 </label>
+          <input type="date" id="last_date" name="last_date"
+            class="rounded-lg w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            required style="text-align: center" />
         </div>
 
-        <div
-          id="timerange"
-          class="text-center block py-2"
-          
-        >
-          <label class="text-center block"> 時間範囲 </label>
-          <div class="flex">
-            <input
-              type="time"
-              id="timerange_start"
-              name="timerange_start"
-              style="text-align: center"
-              class="w-full py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-            />
-            <input
-              type="time"
-              id="timerange_end"
-              name="timerange_end"
-              style="text-align: center"
-              class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-            />
+        <div id="timerange" class="py-2 block text-center">
+          <div>
+            <label class="py-2 text-center block font-mono text-white"> 時間範囲 </label>
+            <input type="time" id="timerange_start" name="timerange_start"
+              class="rounded-lg w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              required />
+            <input type="time" id="timerange_end" name="timerange_end"
+              class="rounded-lg w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+              required />
           </div>
         </div>
 
+
         <div>
-          <label class="text-center py-2 block"> 優先度 </label>
-          <input
-            type="text"
-            id="priority"
-            name="priority"
-            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="3"
-            style="text-align: center"
-            required
-          />
+          <label class="py-2 text-center block font-mono text-white"> 優先度 </label>
+          <input type="text" id="priority" name="priority"
+            class="rounded-lg w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            placeholder="3" style="text-align: center" required />
         </div>
 
         <!-- <div class="example2" style="text-align: right">
@@ -165,14 +116,29 @@
           />
         </div> -->
         <div class="flex justify-center py-2">
-          <button
-            type="submit"
-            class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white"
-          >
+          <button type="submit" class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white">
             送信
           </button>
         </div>
       </form>
+
+      <div>
+        <p class="flex justify-center">{{message}}</p>
+      </div>
+      <div class="flex justify-center py-2">
+        <button id="backbtn" class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white  hover:bg-gray-600"
+          onclick="history.back()">ホーム画面に戻る</button>
+      </div>
+      <script>
+        function back() {
+          location = "http://127.0.0.1:8000"
+        }
+  
+        const backbtn = document.getElementById("backbtn");
+        backbtn.addEventListener("click", back, false);
+      </script>
     </div>
-  </dev>
+  </div>
+</body>
+
 </html>

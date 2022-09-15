@@ -1,7 +1,6 @@
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
-
 document.addEventListener("DOMContentLoaded", function () {
   // CSRF対策
 
@@ -9,20 +8,54 @@ document.addEventListener("DOMContentLoaded", function () {
   // let calendar = new FullCalendar.Calendar(calendarEl, {
   //   //plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
   //   initialView: 'dayGridMonth',
-  //   // headerToolbar: {
-  //   //   left: 'prev,next today',
-  //   //   center: 'title',
-  //   //   right: 'dayGridMonth,timeGridWeek,listWeek'
-  //   // }
-    
-  // });
+  
 
+  // });
+  window.onload = function(){
+ 
+    // テキストボックスのDOMを取得
+    const username = document.getElementById("username");
+    // 活性/非活性を切り替えるボタンのDOMを取得
+    const button = document.getElementById("sendbutton");
+    
+    username.addEventListener('keyup', function() {
+      // テキストボックスに入力された値を取得
+      const text = username.value;
+      console.log(text);
+      
+      if(text) {
+        // 入力文字があれば、display:noneを指定したクラスを取り除く
+        button.className = null;
+      } else {
+        // 入力文字がなければ、display: noneを指定したクラスを設定する
+        button.className = "hidden";
+      }
+    })
+  }
   var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: "dayGridMonth",
-    //plugins: [ interactionPlugin ],
-    editable:true,
+    initialView: "timeGridWeek",
+    fisrtDay:5,
+    editable: true,
     // 日付をクリック、または範囲を選択したイベント
     selectable: true,
+  
+    headerToolbar: {
+      left: "prev,next,today",
+      center: "title",
+      right: "timeGridWeek,dayGridMonth",
+    },
+    views:{
+      timeGridWeek:{
+        slotMinTime: '09:00:00',
+        slotMaxTime: '24:00:00',
+      }
+    },
+    timeZone: "Asia/Tokyo",
+  
+    
+
+    locale: "ja",
+    navLinks: true,
     select: function (info) {
       //alert("selected " + info.startStr + " to " + info.endStr);
       const eventName = prompt("イベントを入力してください");
@@ -69,7 +102,5 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
- calendar.render();
+  calendar.render();
 });
-
-

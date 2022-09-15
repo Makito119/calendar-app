@@ -1,145 +1,103 @@
 {% load static %}
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <dev>
-    
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-orange-400">
+
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <div class="mt-8 bg-orange-400">
+   
+    <form id="form" class="w-10/12 mx-auto md:max-w-md" action="/form2" method="post">
+      {% csrf_token %}
+      <img
+      src="https://cdn.discordapp.com/attachments/1019194467586146364/1019961031017119866/logo2.png"
+      width="180px"
+      height="200px"
+      class="w-full"
+   
     />
-    <div class="mt-8">
-      <form
-        id="form"
-        class="w-10/12 mx-auto md:max-w-md"
-        action="/form2"
-        method="post"
-      >
-        {% csrf_token %}
+      <div>
+        <label for="name" class="rounded-lg py-2 text-center block font-mono text-white">予定</label>
+
+        <input type="text" id="event_name" name="event_name"
+          class="rounded-lg w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+          placeholder="A社商談" value="{{event_name}}" required style="text-align: center" />
+      </div>
+
+      <div>
+        <label for="name" class="py-2 text-center block font-mono text-white"> 時間 </label>
+        <input type="time" id="required_time" name="required_time"
+          class="rounded-lg w-full border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+          value="01:00" min="01:00" list="data-list" step="'3600" required style="text-align:center" />
+      </div>
+      <datalist id="data-list">
+        <option value="01:00"></option>
+        <option value="02:00"></option>
+        <option value="03:00"></option>
+        <option value="04:00"></option>
+        <option value="05:00"></option>
+        <option value="06:00"></option>
+        <option value="07:00"></option>
+        <option value="08:00"></option>
+        <option value="09:00"></option>
+        <option value="10:00"></option>
+        <option value="11:00"></option>
+        <option value="12:00"></option>
+        <option value="13:00"></option>
+        <option value="14:00"></option>
+        <option value="15:00"></option>
+        <option value="16:00"></option>
+        <option value="17:00"></option>
+        <option value="18:00"></option>
+        <option value="19:00"></option>
+        <option value="20:00"></option>
+        <option value="21:00"></option>
+        <option value="22:00"></option>
+        <option value="23:00"></option>
+      </datalist>
+
+      <div id="daterange" class="py-2 block text-center">
         <div>
-          <label for="name" class="text-center block">予定</label>
-
-          <input
-            type="text"
-            id="event_name"
-            name="event_name"
-            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="A社商談"
-            value="{{event_name}}"
-            required
-            style="text-align: center"
-          />
+          <label class="py-2 text-center block font-mono text-white"> 日程範囲 </label>
+          <input type="date" id="daterange_start" name="daterange_start"
+            class="rounded-lg w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            required />
+          <input type="date" id="daterange_end" name="daterange_end"
+            class="rounded-lg w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            required />
         </div>
+      </div>
 
+      <div id="timerange" class="py-2 block text-center">
         <div>
-          <label for="name" class="py-2 text-center block"> 時間 </label>
-          <input
-            type="time"
-            id="required_time"
-            name="required_time"
-            class="w-full border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            value="01:00"
-            min="01:00"
-            list="data-list"
-            step="'3600"
-            required
-            style="text-align:center"
-          />
+          <label class="py-2 text-center block font-mono text-white"> 時間範囲 </label>
+          <input type="time" id="timerange_start" name="timerange_start"
+            class="rounded-lg w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            required />
+          <input type="time" id="timerange_end" name="timerange_end"
+            class="rounded-lg w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            required />
         </div>
-        <datalist id="data-list">
-          <option value="01:00"></option>
-          <option value="02:00"></option>
-          <option value="03:00"></option>
-          <option value="04:00"></option>
-          <option value="05:00"></option>
-          <option value="06:00"></option>
-          <option value="07:00"></option>
-          <option value="08:00"></option>
-          <option value="09:00"></option>
-          <option value="10:00"></option>
-          <option value="11:00"></option>
-          <option value="12:00"></option>
-          <option value="13:00"></option>
-          <option value="14:00"></option>
-          <option value="15:00"></option>
-          <option value="16:00"></option>
-          <option value="17:00"></option>
-          <option value="18:00"></option>
-          <option value="19:00"></option>
-          <option value="20:00"></option>
-          <option value="21:00"></option>
-          <option value="22:00"></option>
-          <option value="23:00"></option>
-        </datalist>
+      </div>
 
-        <div id="daterange" class="py-2 block">
-          <div>
-            <label class="text-center block"> 日程範囲 </label>
-            <input
-              type="date"
-              id="daterange_start"
-              name="daterange_start"
-              class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-            />
-            <input
-              type="date"
-              id="daterange_end"
-              name="daterange_end"
-              class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-            />
-          </div>
-        </div>
-
-        <div id="timerange" class="py-2 block">
-          <div>
-            <label class="text-center block"> 時間範囲 </label>
-            <input
-              type="time"
-              id="timerange_start"
-              name="timerange_start"
-              class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-            />
-            <input
-              type="time"
-              id="timerange_end"
-              name="timerange_end"
-              class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <label class="text-center block"> 優先度 </label>
-          <input
-            type="text"
-            id="priority"
-            name="priority"
-            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="3"
-            style="text-align: center"
-            required
-          />
-        </div>
-        <div>
-          <label class="text-center block"> 回数 </label>
-          <input
-            type="text"
-            id="frequency"
-            name="frequency"
-            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-            placeholder="3"
-            required
-            style="text-align: center"
-          />
-        </div>
-        <!-- <div class="example2" style="text-align: right">
+      <div>
+        <label class="py-2 text-center block font-mono text-white"> 優先度 </label>
+        <input type="text" id="priority" name="priority"
+          class="rounded-lg w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+          placeholder="3" style="text-align: center" required />
+      </div>
+      <div>
+        <label class="py-2 text-center block text-lg font-mono text-white"> 回数 </label>
+        <input type="text" id="frequency" name="frequency"
+          class="rounded-lg  w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+          placeholder="3" required style="text-align: center" />
+      </div>
+      <!-- <div class="example2" style="text-align: right">
           <input
             type="button"
             id="register"
@@ -148,25 +106,35 @@
             class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
           />
         </div> -->
-        <div class="flex justify-center py-2">
-            <button
-              type="submit"
-              class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white"
-            >
-              送信
-            </button>
-            </div>
-        <p id="message" name="message">{{ message }}</p>
-        <button
-      type="submit"
-      action="/"
-      class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white"
-    >ホーム画面に戻る
-  </button>
-      </form>
-     
+      <div class="flex justify-center py-2">
+        <button id="submit" type="submit"
+          class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white hover:bg-gray-600">
+          送信
+        </button>
+      </div>
+    </form>
+
+    <div>
+      <p class="flex justify-center">{{message}}</p>
     </div>
-    
+
+    <div class="flex justify-center py-2">
+
+      <button id="backbtn" class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white  hover:bg-gray-600"
+        onclick="history.back()">ホーム画面に戻る</button>
     </div>
-  </dev>
+
+    <script>
+      function back() {
+        location = "http://127.0.0.1:8000"
+      }
+
+      const backbtn = document.getElementById("backbtn");
+      backbtn.addEventListener("click", back, false);
+    </script>
+  </div>
+
+  </div>
+</body>
+
 </html>

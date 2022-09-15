@@ -144,6 +144,7 @@ def scheduling():
     for n in new_event_list:
         e=sc_Event(n["event_Id"],n["name"],n["required_Time"],n["priority"],n["timeRanges"])
         Events.append(e)
+        print("eeeee",e)
     # Events=[Event1,Event2,Event3,Event4,Event5,Event6,Event7,Event8,Event9]
    
     l=[[e] for e in Events]
@@ -191,31 +192,31 @@ def scheduling():
                     kakutei.append(x[0])
     Shototsu=l
     count=0
-    while(count<len(Shototsu)):
-        if Shototsu[count][0] in kakutei:
-            del Shototsu[count]
-        else:
-            for k in range(len(kakutei)):
-                if kakutei[k] in Shototsu[count]:
-                    del Shototsu[count][Shototsu[count].index(kakutei[k])]
-            count+=1
-    alreadies=[]
-    S=[]
-    for s in range(len(Shototsu)):
-        alr=[]
-        for n in Shototsu[s]:
-            alr.append(n.name)
-        alr=sorted(alr)
-        if not alr in alreadies:
-            alreadies.append(alr)
-            S.append(Shototsu[s])
+    # while(count<len(Shototsu)):
+    #     if Shototsu[count][0] in kakutei:
+    #         del Shototsu[count]
+    #     else:
+    #         for k in range(len(kakutei)):
+    #             if kakutei[k] in Shototsu[count]:
+    #                 del Shototsu[count][Shototsu[count].index(kakutei[k])]
+    #         count+=1
+    # alreadies=[]
+    # S=[]
+    # for s in range(len(Shototsu)):
+    #     alr=[]
+    #     for n in Shototsu[s]:
+    #         alr.append(n.name)
+    #     alr=sorted(alr)
+    #     if not alr in alreadies:
+    #         alreadies.append(alr)
+    #         S.append(Shototsu[s])
     
-    Shototsu=S
+    # Shototsu=S
     
     Shototsu=sorted(Shototsu, key=len)
-    for s in Shototsu:
-        print()
-        print(11111111,s)
+    # for s in Shototsu:
+    #     print()
+    #     print(11111111,s)
 
     BeatedList=[]
 
@@ -270,34 +271,59 @@ def scheduling():
             for t in x.timeRanges:
                 if t[1]<= conf.confirmed_Time[0] or conf.confirmed_Time[1] <=t[0]:
                     temp_timeRanges.append(t)
-                elif t[0]<= conf.confirmed_Time[0] <t[1]:
+                if t[0]<= conf.confirmed_Time[0] <t[1]:
                     temp_timeRanges.append([t[0],conf.confirmed_Time[0]])
-                elif t[0]<= conf.confirmed_Time[1] <t[1]:
+                if t[0]<= conf.confirmed_Time[1] <t[1]:
                     temp_timeRanges.append([conf.confirmed_Time[1],t[1]])
                 # else:
                 #     temp_timeRanges.append([t[0],t[0]])
             # temp_x.timeRanges=temp_timeRanges
             tem=[]
             for c in temp_timeRanges:
+                # print(conf.confirmed_Time[0],conf.confirmed_Time[1])
+                # print(c[0],c[1])
                 if c[0]<c[1]:
                     tem.append(c)
-            temp_x.timeRanges=tem
-            flag=0
-            for t in temp_x.timeRanges:
-                if t[0]+temp_x.required_Time <= t[1]:
-                    flag=1
-                    break
-            if flag==1:
-                news.append(temp_x)
+            if tem!=[]:
+                temp_x.timeRanges=tem
+                for s in Shototsu:
+                    for ss in s:
+                        if ss == x:
+                            ss.timeRanges=tem
+                flag=0
+                for t in temp_x.timeRanges:
+                    if t[0]+temp_x.required_Time <= t[1]:
+                        flag=1
+                        break
+                if flag==1:
+                    news.append(temp_x)
+                else:
+                    BeatedList.append(x)
             else:
                 BeatedList.append(x)
+                c1=0
+                while(c1<len(Shototsu)):
+                    c0=0
+                    while(c0<len(Shototsu[c1])):
+                        if Shototsu[c1][c0]==x:
+                            del Shototsu[c1][c0]
+                        else:
+                            c0+=1
+                    c1+=1
         del Shototsu[Shototsu.index(min_loss_list)]
         if len(news)!=0:
             Shototsu.append(news)
 
-        for Y in Shototsu:
-            if max_priority_Event in Y:
-                del Y[Y.index(max_priority_Event)]
+        c1=0
+        while(c1<len(Shototsu)):
+            c0=0
+            while(c0<len(Shototsu[c1])):
+                if Shototsu[c1][c0].event_Id==max_priority_Event.event_Id:
+                    del Shototsu[c1][c0]
+                else:
+                    c0+=1
+            c1+=1
+
         # else:
         #     BeatedList.append(max_priority_Event)
         #     del X[X.index(max_priority_Event)]
@@ -309,14 +335,18 @@ def scheduling():
     print(len(BeatedList))
     k=[]
     b=[]
+    alreadies=[]
+
     for K in Kakutei:
-        k.append(
-            {
-                "title": K.name,
-                "start": K.confirmed_Time[0],
-                "end": K.confirmed_Time[1],
-            }
-        )
+        if not K.event_Id in alreadies:
+            alreadies.append(K.event_Id)
+            k.append(
+                {
+                    "title": K.name,
+                    "start": K.confirmed_Time[0],
+                    "end": K.confirmed_Time[1],
+                }
+            )
 
     for B in BeatedList:
         b.append(
@@ -326,19 +356,19 @@ def scheduling():
                 "end": B.timeRanges[0][1],
             }
         )
-
+    print("k:",k,"b:",b)  
     return k, b
 
 def form2(request):
   if request.method =="GET":
 
     context = {
-            'message': " GOT now! from View!!",
+            'message':''
       }
     return render(request, 'scheduleCalendar/form2.html', context)
   elif request.method=="POST":
     context = {
-            'message': "POST OK!!",
+            'message': "イベント作成完了",
             'required_time':request.POST['required_time'],
             'event_name':request.POST['event_name'],
             'daterange_start':request.POST['daterange_start'],
@@ -350,7 +380,7 @@ def form2(request):
             
       }
       # リクエストの取得・成形
-    event_name = context["event_name"]
+    event_name = context["event_name"]+'(priority:'+str(context['priority'])+')'
 
     time = context["required_time"].split(":")
     required_Time = datetime.time(int(time[0]),int(time[1]))
@@ -396,6 +426,8 @@ def form2(request):
         )
         event.save()
     print(1)
+    records = Event.objects.filter(start_date__gte=datetime.datetime.now())
+    records.delete()
     confirm_event,unconfirm_event = scheduling()
 
     for num in range(len(confirm_event)):
@@ -417,12 +449,12 @@ def form2(request):
 def form1(request):
   if request.method =="GET":
     context = {
-            'message': " GOT now! from View!!",
+            'message': "",
         }
     return render(request, 'scheduleCalendar/form1.html', context)
   elif request.method=="POST":
     context = {
-            'message': "POST OK!!",
+            'message': "イベント作成完了",
             'event_name':request.POST['schedule'],        
             'required_time':datetime.time(int(request.POST['time'].split(":")[0]),int(request.POST['time'].split(":")[1])),
             'timerange_begin':request.POST.getlist('timerange_begin'),
@@ -436,7 +468,8 @@ def form1(request):
     del context['timerange_begin']
     del context['timerange_end']
     print(context)
-    event_name = context["event_name"]
+    event_name = context["event_name"]+'(priority:'+str(context['priority'])+')'
+
 
     time = context["required_time"]
     required_Time = datetime.timedelta(hours=int(time.hour),minutes=int(time.minute))
@@ -483,7 +516,19 @@ def form1(request):
         priority = int(priority)
     )
     event.save()
-  
+    records = Event.objects.filter(start_date__gte=datetime.datetime.now())
+    records.delete()
+    print("process2")
+    confirm_event,unconfirm_event = scheduling()
+
+    for num in range(len(confirm_event)):
+      event = Event(
+      start_date = confirm_event[num]['start'],
+      end_date = confirm_event[num]['end'],
+      event_name = confirm_event[num]['title'],
+      
+      )
+      event.save()
 
     return render(request, 'scheduleCalendar/form1.html', context)
 
@@ -498,12 +543,12 @@ def form3(request):
   if request.method =="GET":
 
     context = {
-            'message': " GOT now! from View!!",
+            'message': "",
         }
     return render(request, 'scheduleCalendar/form3.html', context)
   elif request.method=="POST":
     context = {
-            'message': "POST OK!!",
+            'message': "イベント作成完了",
             'event_name':request.POST['schedule'],        
             'required_time':datetime.time(int(request.POST['time'].split(":")[0]),int(request.POST['time'].split(":")[1])),
             'timespan':request.POST['timespan'],
@@ -515,7 +560,7 @@ def form3(request):
         }
     print(context)
     # リクエストの取得・成形
-    event_name = context["event_name"]
+    event_name = context["event_name"]+'(priority:'+str(context['priority'])+')'
 
     time = context["required_time"]
     required_Time = datetime.timedelta(hours=int(time.hour),minutes=int(time.minute))
@@ -538,14 +583,16 @@ def form3(request):
 
     priority = int(context["priority"])
     id = uuid.uuid1() #現在時刻からユニークIDを生成
-    tommorow_date = datetime.datetime.now()+datetime.timedelta(days=1)
+    tommorow = datetime.datetime.now()+datetime.timedelta(days=1)
+    tommorow_date = datetime.datetime(tommorow.year,tommorow.month,tommorow.day)
 
     #週の場合
     if timespan == "週":
       #終了日まで何週間あるか
         print('week go')
-        freq_in_range = (last_date - tommorow_date).days//7
+        freq_in_range = ((last_date - tommorow_date).days+1)//7
         #調整可能時刻テーブルへの登録
+        print('freq',freq_in_range)
         for jj in range(freq_in_range):
             for ii in range(freq):
                 id = uuid.uuid1() #現在時刻からユニークIDを生成
@@ -589,6 +636,8 @@ def form3(request):
                     )
                     timerange.save()
     print("process2")
+    records = Event.objects.filter(start_date__gte=datetime.datetime.now())
+    records.delete()
     confirm_event,unconfirm_event = scheduling()
 
     for num in range(len(confirm_event)):
@@ -598,6 +647,7 @@ def form3(request):
       event_name = confirm_event[num]['title']
       )
       event.save()
+    
 
     return render(request, 'scheduleCalendar/form3.html', context)
 
