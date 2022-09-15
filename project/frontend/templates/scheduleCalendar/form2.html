@@ -3,33 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href='fullcalendar/main.css' rel='stylesheet' />
-    <script src='fullcalendar/main.js'></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../path/to/flowbite/dist/flowbite.js"></script>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-
-    </script>
   </head>
-  <body>
-    <div id='calendar'></div>
-  </body>
   <dev>
     
     <link
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <div>
+    <div class="mt-8">
       <form
         id="form"
         class="w-10/12 mx-auto md:max-w-md"
@@ -38,7 +20,7 @@
       >
         {% csrf_token %}
         <div>
-          <label for="name" class="text-sm block">予定</label>
+          <label for="name" class="text-center block">予定</label>
 
           <input
             type="text"
@@ -52,18 +34,19 @@
           />
         </div>
 
-        <div class="mb-8">
-          <label for="name" class="text-sm block"> 時間 </label>
+        <div>
+          <label for="name" class="py-2 text-center block"> 時間 </label>
           <input
             type="time"
             id="required_time"
             name="required_time"
-            class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            class="w-full border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             value="01:00"
             min="01:00"
             list="data-list"
             step="'3600"
             required
+            style="text-align:center"
           />
         </div>
         <datalist id="data-list">
@@ -92,15 +75,15 @@
           <option value="23:00"></option>
         </datalist>
 
-        <div id="daterange" class="text-sm block">
+        <div id="daterange" class="py-2 block">
           <div>
-            <label class="text-sm block"> 日程範囲 </label>
+            <label class="text-center block"> 日程範囲 </label>
             <input
               type="date"
               id="daterange_start"
               name="daterange_start"
               class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              reuired
+              required
             />
             <input
               type="date"
@@ -112,15 +95,15 @@
           </div>
         </div>
 
-        <div id="timerange" class="text-sm block">
+        <div id="timerange" class="py-2 block">
           <div>
-            <label class="text-sm block"> 時間範囲 </label>
+            <label class="text-center block"> 時間範囲 </label>
             <input
               type="time"
               id="timerange_start"
               name="timerange_start"
               class="w-fit py-2 mx-5 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
-              reuired
+              required
             />
             <input
               type="time"
@@ -133,24 +116,24 @@
         </div>
 
         <div>
-          <label class="text-sm block"> 優先度 </label>
+          <label class="text-center block"> 優先度 </label>
           <input
             type="text"
             id="priority"
             name="priority"
-            class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="3"
             style="text-align: center"
             required
           />
         </div>
         <div>
-          <label class="text-sm block"> 回数 </label>
+          <label class="text-center block"> 回数 </label>
           <input
             type="text"
             id="frequency"
             name="frequency"
-            class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="3"
             required
             style="text-align: center"
@@ -165,15 +148,23 @@
             class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
           />
         </div> -->
-        <button
-          type="submit"
-          style="text-align: right"
-          class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
-        >
-          送信
-        </button>
+        <div class="flex justify-center py-2">
+            <button
+              type="submit"
+              class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white"
+            >
+              送信
+            </button>
+            </div>
         <p id="message" name="message">{{ message }}</p>
+        <button
+      type="submit"
+      action="/"
+      class="mx-2 bg-blue-300 rounded px-4 py-2 font-semibold text-white"
+    >ホーム画面に戻る
+  </button>
       </form>
+     
     </div>
     
     </div>

@@ -10,7 +10,7 @@
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <div class="mt-8">
+    <div class="mt-8 flex justifycenter">
       <form
         id="form"
         class="w-10/12 mx-auto md:max-w-md"
@@ -19,7 +19,7 @@
       >
         {% csrf_token %}
         <div class="mb-8">
-          <label for="name" class="text-sm block">予定</label>
+          <label for="name" class="text-center block">予定</label>
 
           <input
             type="text"
@@ -34,12 +34,13 @@
         </div>
 
         <div class="mb-8">
-          <label for="name" class="text-sm block"> 時間 </label>
+          <label for="name" class="text-center block"> 時間 </label>
           <input
             type="time"
             id="time"
             name="time"
-            class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            style="text-align: center"
+            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             value="01:00"
             min="01:00"
             list="data-list"
@@ -73,9 +74,9 @@
           <option value="23:00"></option>
         </datalist>
 
-        <div id="timerange" class="text-sm block">
+        <div id="timerange" class="text-center block">
           <div>
-            <label for="email" class="text-sm block"> 調整範囲 </label>
+            <label for="email" class="text-center block"> 調整範囲 </label>
             <input
               type="datetime-local"
               id="timerange_begin"
@@ -96,19 +97,19 @@
           </div>
         </div>
 
-        <div class="example2" style="text-align: right">
+        <div class="example2 py-1 " style="text-align: center">
           <input
             type="button"
             id="add"
             w-4
             value="＋"
-            class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
+            class="mx-2 bg-blue-300 font-semibold text-white rounded hover:bg-gray-600 px-4 py-2"
           />
           <input
             type="button"
             id="remove"
             value="ー"
-            class="bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
+            class="mx-2 bg-blue-300 font-semibold text-white rounded hover:bg-gray-600 px-4 py-2"
           />
         </div>
         <script>
@@ -130,16 +131,16 @@
           removebtn.addEventListener("click", remove, false);
         </script>
 
-        <div>
-          <label class="text-sm block"> 優先度 </label>
+        <div class="text-center block py-4">
+          <label class=" block"> 優先度 </label>
           <input
             type="text"
             id="priority"
             name="priority"
-            class="w-fit py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
+            class="w-full py-2 border-b focus:outline-none focus:border-b-2 focus:border-indigo-500 placeholder-gray-500 placeholder-opacity-50"
             placeholder="3"
             required
-            style="text-align:center"
+            style="text-align: center"
           />
         </div>
         <!-- <div class="example2" style="text-align: right">
@@ -151,16 +152,17 @@
             class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
           />
         </div> -->
-        <button
-          type="submit"
-          style="text-align: right"
-          class="mx-2 bg-gray-700 hover:bg-gray-600 text-white rounded px-4 py-2"
-        >
-          送信
-        </button>
-        <p id="message" name="message">{{ message }}</p>
+        <div class="flex justify-center py-2">
+          <button
+            type="submit"
+            style="text-align: right"
+            class="mx-2 bg-blue-300 hover:bg-gray-600 font-semibold text-white rounded px-4 py-2"
+          >
+            送信
+          </button>
+        </div>
+       
       </form>
-      
     </div>
   </dev>
 </html>
