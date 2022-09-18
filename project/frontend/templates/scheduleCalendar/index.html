@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <nav class="flex  justify-between flex-wrap bg-orange-400 p-4">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+      <i
+        class="fa fa-calendar fill-current h-8 w-8 mr-10"
+        style="font-size: 36px"
+      ></i>
+      <span class="font-semibold text-xl tracking-tight">APPO APP</span>
+    </div>
+    <img
+        src="https://cdn.discordapp.com/attachments/1019194467586146364/1019961031017119866/logo2.png"
+        width="140px"
+        height="280px"
+        class="block lg:inline-block text-right ml-54 justify-items-end"
+      />
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div class="text-sm">
+        <a
+          href="#responsive-header"
+          onclick="location.href='./form1'"
+          class="block mt-4 lg:inline-block lg:mt-0 bg-grey-300 text-xl text-white hover:text-black mr-4 px-8"
+        >
+          +Single Event
+        </a>
+        <a
+          href="#responsive-header"
+          onclick="location.href='./form2'"
+          class="block mt-4 lg:inline-block lg:mt-0 text-xl bg-grey-300 text-white hover:text-black mr-4 px-8"
+        >
+          +Multiple Event
+        </a>
+        <a
+          href="#responsive-header"
+          onclick="location.href='./form3'"
+          class="block mt-4 lg:inline-block lg:mt-0 text-xl bg-grey-300 text-white hover:text-black px-8"
+        >
+          +Cyclic Event
+        </a>
+      </div>
+      
+    </div>
+  </nav>
+  <body>
+    <div id="calendar"></div>
+
+    {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.js"></script>
+    <script src="{% static 'scheduleCalendar/app.js' %}"></script>
+  </body>
+</html>
