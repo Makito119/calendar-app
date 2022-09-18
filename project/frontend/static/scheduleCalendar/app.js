@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     timeZone: "Asia/Tokyo",
   
-    
+    eventColor: '#ff8c00',
 
     locale: "ja",
     navLinks: true,

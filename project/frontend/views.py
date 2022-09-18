@@ -379,7 +379,7 @@ def form2(request):
             'frequency':int(request.POST['frequency']),
             
       }
-      # リクエストの取得・成形
+    # リクエストの取得・成形
     event_name = context["event_name"]+'(priority:'+str(context['priority'])+')'
 
     time = context["required_time"].split(":")
@@ -434,7 +434,8 @@ def form2(request):
       event = Event(
       start_date = confirm_event[num]['start'],
       end_date = confirm_event[num]['end'],
-      event_name = confirm_event[num]['title']
+      event_name = confirm_event[num]['title'],
+     
       )
       event.save()
     
@@ -526,6 +527,7 @@ def form1(request):
       start_date = confirm_event[num]['start'],
       end_date = confirm_event[num]['end'],
       event_name = confirm_event[num]['title'],
+      
       
       )
       event.save()
